@@ -1,0 +1,20 @@
+localbitcoins:
+  countryname: app
+  countrycode: true
+
+paxful:
+  offertype: buy
+  paymentMethod:
+  currency: usd
+  fiatMin: 0
+  group:
+  geonameId:
+
+coinbase:
+  currencyPair: BTC-USD
+
+coinbaseTrades:
+  side: buy
+  productId: BTC-USD
+  size: 10
+  funds: 10

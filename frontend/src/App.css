@@ -1,0 +1,55 @@
+@import '~antd/dist/antd.css';
+
+#components-layout-demo-responsive .logo {
+  height: 32px;
+  background: rgba(255, 255, 255, 0.2);
+  margin: 16px;
+}
+
+.site-layout-sub-header-background {
+  background: #fff;
+}
+
+.site-layout-background {
+  background: #fff;
+}
+
+.btn-login, .btn-logout {
+  background: #1890ff;
+  border: none;
+  color: #fff;
+  width: 100%;
+  cursor: pointer;
+}
+
+.btn-link-coinbase {
+  background: #1890ff;
+  border: none;
+  color: #fff;
+  padding: 7px 30px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.recur-purchases-form__amount {
+  margin-right: 15px;
+  border: 1px solid gray;
+}
+
+.recur-purchases-form__btn {
+  background: #1890ff;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 2px 20px;
+}
+
+.recur-purchases-form__btn-edit {
+  margin-right: 20px;
+}
+
+.recur-purchases-form__btn-delete {
+  background: #cf1a10;
+}
+

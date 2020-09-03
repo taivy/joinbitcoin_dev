@@ -1,0 +1,68 @@
+version: '3.7'
+
+services:
+  postgres:
+    image: postgres:11
+    container_name: postgres
+    command: postgres -c logging_collector=on -c log_destination=stderr -c log_directory=/volumes/postgres -c log_min_messages=DEBUG5 -c log_statement=all
+    volumes:
+      #- ./volumes/postgres:/volumes/postgres
+      - ./postgres/init.sql:/docker-entrypoint-initdb.d/01-init.sql
+    ports:
+      - "5433:5432"
+    expose:
+      - "5432"
+    networks:
+      - app
+    environment:
+      - PGDATA=/volumes/postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+      target: builder
+    command: npm run start:dev
+    depends_on:
+      - postgres
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    ports:
+      - 7002:3000
+      - 9229:9229
+    networks:
+      - app
+    environment:
+      - DATABASE_URL=postgres://joinbitcoin:joinbitcoin@postgres:5432/joinbitcoin
+    env_file:
+      - ./backend/.env
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - 7001:3000
+    networks:
+      - app
+    environment:
+      # - SERVER_HOST=backend
+      # - SERVER_PORT=3000
+      - CHOKIDAR_USEPOLLING=true
+    stdin_open: true
+    # tty: true
+    # restart: always
+    env_file:
+      - ./frontend/.env
+
+networks:
+  app:
+    name: app
+    attachable: true
+    driver: bridge
